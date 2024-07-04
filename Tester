@@ -5,17 +5,37 @@ local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 local initialPos = humanoidRootPart.CFrame
 
-humanoidRootPart.CFrame = CFrame.new(-934.092529, -25.2498283, 570.475342)
-wait(0.2)
+-- Function to buy armor and handle re-buying if destroyed
+local function buyArmor()
+    humanoidRootPart.CFrame = CFrame.new(-934.092529, -25.2498283, 570.475342)
+    wait(0.2)
 
-local shop = workspace:WaitForChild("Ignored"):WaitForChild("Shop")
-local armor = shop:WaitForChild("[High-Medium Armor] - $2440")
-local clickDetector = armor:WaitForChild("ClickDetector")
+    local shop = workspace:WaitForChild("Ignored"):WaitForChild("Shop")
+    local armor = shop:FindFirstChild("[High-Medium Armor] - $2440")
 
-fireclickdetector(clickDetector)
-wait(0.1)
+    if armor then
+        local clickDetector = armor:FindFirstChild("ClickDetector")
+        if clickDetector then
+            fireclickdetector(clickDetector)
+            wait(0.1)
+            humanoidRootPart.CFrame = initialPos
+        else
+            warn("ClickDetector not found on armor!")
+        end
+    else
+        warn("Armor not found!")
+    end
+end
 
-humanoidRootPart.CFrame = initialPos
+-- Execute once and start loop for auto-rebuying armor
+buyArmor()
+
+shop.ChildRemoved:Connect(function(child)
+    if child.Name == "[High-Medium Armor] - $2440" then
+        buyArmor()
+    end
+end)
+
 
 
 wait(0.1)
