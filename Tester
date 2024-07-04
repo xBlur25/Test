@@ -1,4 +1,3 @@
-wait(0.1)
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
@@ -27,14 +26,16 @@ local function buyArmor()
     end
 end
 
--- Execute once and start loop for auto-rebuying armor
-buyArmor()
-
-shop.ChildRemoved:Connect(function(child)
-    if child.Name == "[High-Medium Armor] - $2440" then
-        buyArmor()
+-- Function to wait for forcefield to disappear
+local function waitForForceField()
+    while player.Character:FindFirstChildOfClass("ForceField") do
+        wait(1)  -- Check every second
     end
-end)
+    buyArmor()
+end
+
+-- Start waiting for forcefield
+waitForForceField()
 
 wait(0.1)
 
