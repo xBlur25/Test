@@ -2,31 +2,21 @@ wait(0.1)
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-local initialPos = humanoidRootPart.CFrame
-
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 
 local initialPos = humanoidRootPart.CFrame
 
 humanoidRootPart.CFrame = CFrame.new(-934.092529, -25.2498283, 570.475342)
 wait(0.2)
 
-local shop = workspace:FindFirstChild("Ignored"):FindFirstChild("Shop")
-if shop then
-    local armor = shop:FindFirstChild("[High-Medium Armor] - $2440")
-    if armor then
-        local clickDetector = armor:FindFirstChild("ClickDetector")
-        if clickDetector then
-            fireclickdetector(clickDetector)
-        end
-    end
-end
+local shop = workspace:WaitForChild("Ignored"):WaitForChild("Shop")
+local armor = shop:WaitForChild("[High-Medium Armor] - $2440")
+local clickDetector = armor:WaitForChild("ClickDetector")
 
+fireclickdetector(clickDetector)
 wait(0.1)
 
 humanoidRootPart.CFrame = initialPos
+
 
 wait(0.1)
 
