@@ -41,11 +41,10 @@ waitForForceField()
 local shop = workspace:WaitForChild("Ignored"):WaitForChild("Shop")
 shop.ChildRemoved:Connect(function(child)
     if child.Name == "[High-Medium Armor] - $2440" then
-        wait(1)  -- Wait a bit to ensure armor removal is processed
+        wait(0.5)  -- Wait a bit to ensure armor removal is processed
         buyArmor()
     end
 end)
-
 
 wait(0.1)
 
