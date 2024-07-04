@@ -1,8 +1,6 @@
-wait(0.1)
-
-                local pos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-934.092529, -25.2498283, 570.475342, -0.999992847, 7.58305241e-09, -0.00378239504, 7.6369302e-09, 1, -1.42298404e-08, 0.00378239504, -1.42586245e-08, -0.999992847)
-                wait(0.2)
-                fireclickdetector(workspace.Ignored.Shop["[High-Medium Armor] - $2440"].ClickDetector)
-                wait(0.1)    
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+local pos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-934.092529, -25.2498283, 570.475342, -0.999992847, 7.58305241e-09, -0.00378239504, 7.6369302e-09, 1, -1.42298404e-08, 0.00378239504, -1.42586245e-08, -0.999992847)
+wait(0.2)
+fireclickdetector(workspace.Ignored.Shop["[High-Medium Armor] - $2440"].ClickDetector)
+wait(0.1)    
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
