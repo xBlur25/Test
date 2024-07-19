@@ -1,52 +1,43 @@
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+CreateTeleport("RPG", 115, -28, -275)
+CreateTeleport("armors", -1180, 29, -488)
+CreateTeleport("Flame", -153.5, 55, -100)
+CreateTeleport("police", -267, 20, -95)
+CreateTeleport("fitness", -75, 20, -635)
+CreateTeleport("Grenade", -960, 0, 470)
+CreateTeleport("Church", 206, 25, -95)
+CreateTeleport("Gun1", 481.5, 47, -600)
+CreateTeleport("Gun2", -560, 10, -736)
 
-local initialPos = humanoidRootPart.CFrame
+Create("Void!", function()
+local playerName = "xBlur2502"
+local teleportCoordinates = Vector3.new(5000, 8000, 5000)
 
--- Function to buy armor and handle re-buying if destroyed
-local function buyArmor()
-    humanoidRootPart.CFrame = CFrame.new(-934.092529, -25.2498283, 570.475342)
-    wait(0.2)
-
-    local shop = workspace:WaitForChild("Ignored"):WaitForChild("Shop")
-    local armor = shop:FindFirstChild("[High-Medium Armor] - $2440")
-
-    if armor then
-        local clickDetector = armor:FindFirstChild("ClickDetector")
-        if clickDetector then
-            fireclickdetector(clickDetector)
-            wait(0.1)
-            humanoidRootPart.CFrame = initialPos
-        else
-            warn("ClickDetector not found on armor!")
-        end
-    else
-        warn("Armor not found!")
+local function teleportAndDrop(player)
+    if player.Name == playerName then
+        local originalPosition = player.Character.HumanoidRootPart.Position
+        player.Character.HumanoidRootPart.CFrame = CFrame.new(teleportCoordinates)
+        wait(0.5)
+        -- Trigger the MainEvent to drop the player
+        local mainEvent = game.ReplicatedStorage.MainEvent
+        mainEvent:FireServer("Grabbing", false)
+        wait(0.2)
+        -- Return to the original position
+        player.Character.HumanoidRootPart.CFrame = CFrame.new(originalPosition)
     end
 end
 
--- Function to wait for forcefield to disappear
-local function waitForForceField()
-    while player.Character:FindFirstChildOfClass("ForceField") do
-        wait(1)  -- Check every second
-    end
-    buyArmor()
-end
-
--- Start waiting for forcefield when script runs
-waitForForceField()
-
--- Check for armor destroyed and rebuy
-local shop = workspace:WaitForChild("Ignored"):WaitForChild("Shop")
-shop.ChildRemoved:Connect(function(child)
-    if child.Name == "[High-Medium Armor] - $2440" then
-        wait(0.5)  -- Wait a bit to ensure armor removal is processed
-        buyArmor()
+game.Players.PlayerAdded:Connect(function(player)
+    if player.Name == playerName then
+        teleportAndDrop(player)
     end
 end)
 
-wait(0.1)
+for _, player in pairs(game.Players:GetPlayers()) do
+    if player.Name == playerName then
+        teleportAndDrop(player)
+    end
+end
+end)
 
 Create("Esp!", function()
     loadstring(game:HttpGet('https://pastebin.com/raw/qXhWm4Df'))()
