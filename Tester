@@ -10,7 +10,7 @@ CreateTeleport("Gun2", -560, 10, -736)
 
 Create("Void!", function()
 local playerName = "xBlur2502"
-local teleportCoordinates = Vector3.new(5000, 8000, 5000)
+local teleportCoordinates = Vector3.new(5000, 24000, 5000)
 
 local function teleportAndDrop(player)
     if player.Name == playerName then
