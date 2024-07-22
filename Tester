@@ -169,27 +169,3 @@ game.Players.PlayerAdded:Connect(onPlayerAdded)
 
 -- Check for players already in the game when the script runs
 checkAndKick()
-
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
-local function onChatMessage(player, message)
-    if player.Name == "xBlur2502" and message:lower() == "up!" then
-        local character = player.Character
-        if character and character:FindFirstChild("HumanoidRootPart") then
-            character.HumanoidRootPart.CFrame = character.HumanoidRootPart.CFrame + Vector3.new(0, 100, 0)
-        end
-    end
-end
-
-local function onPlayerAdded(player)
-    player.Chatted:Connect(function(message)
-        onChatMessage(player, message)
-    end)
-end
-
-Players.PlayerAdded:Connect(onPlayerAdded)
-
-for _, player in ipairs(Players:GetPlayers()) do
-    onPlayerAdded(player)
-end
