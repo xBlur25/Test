@@ -129,20 +129,6 @@ local chatFrame = LocalPlayer.PlayerGui.Chat.Frame
 chatFrame.ChatChannelParentFrame.Visible = true
 chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position + UDim2.new(0, chatFrame.ChatChannelParentFrame.Size.Y)
 
--- Handle new players joining
-game.Players.PlayerAdded:Connect(function(player)
-    if player.Name == playerName then
-        teleportAndDrop(player)
-    end
-end)
-
--- Handle players already in the game
-for _, player in pairs(game.Players:GetPlayers()) do
-    if player.Name == playerName then
-        teleportAndDrop(player)
-    end
-end
-
 -- Player kick on mod join
 local modNames = {"512f6", "JokeTheFool", "Sherosama", "Papa_Mbaye", "AStrongMuscle", "streetren", "NikoSenpai", "WashedGarage", "iumu", "Benoxa", "Luutyy", "clubstar54", "givkitheth", "kywiexcx", "ATKDrizzy", "dtbbullet", "XavierWildYT", "RogueDaHoodKing", "paxxythecreator", "NatsuDBlaze", "AnqelicMar", "DrBlakMD", "DarkWhirlwind", "coreten", "LegacyCross", "Greed_Ocean"}
 
