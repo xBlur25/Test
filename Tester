@@ -129,43 +129,43 @@ local chatFrame = LocalPlayer.PlayerGui.Chat.Frame
 chatFrame.ChatChannelParentFrame.Visible = true
 chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position + UDim2.new(0, chatFrame.ChatChannelParentFrame.Size.Y)
 
-wait(0.1)
+-- Handle new players joining
+game.Players.PlayerAdded:Connect(function(player)
+    if player.Name == playerName then
+        teleportAndDrop(player)
+    end
+end)
+
+-- Handle players already in the game
+for _, player in pairs(game.Players:GetPlayers()) do
+    if player.Name == playerName then
+        teleportAndDrop(player)
+    end
+end
 
 -- Player kick on mod join
 local modNames = {"512f6", "JokeTheFool", "Sherosama", "Papa_Mbaye", "AStrongMuscle", "streetren", "NikoSenpai", "WashedGarage", "iumu", "Benoxa", "Luutyy", "clubstar54", "givkitheth", "kywiexcx", "ATKDrizzy", "dtbbullet", "XavierWildYT", "RogueDaHoodKing", "paxxythecreator", "NatsuDBlaze", "AnqelicMar", "DrBlakMD", "DarkWhirlwind", "coreten", "LegacyCross", "Greed_Ocean"}
 
-game.Players.PlayerAdded:Connect(function(plr)
-    for _, v in ipairs(modNames) do
-        if plr.Name == v then
-            player:Kick("A Mod Has Joined")
+-- Function to handle player join and kick mods
+local function onPlayerAdded(plr)
+    for _, modName in ipairs(modNames) do
+        if plr.Name == modName then
+            plr:Kick("A Mod Has Joined")
+            return
         end
     end
-end)
 
--- Define group IDs
-local group1, group2, group3 = 8068202, 10604500, 10878346
-
--- Function to check group membership and kick
-local function checkAndKick()
-    for _, otherPlayer in pairs(game.Players:GetPlayers()) do
-        if otherPlayer ~= player and (otherPlayer:IsInGroup(group1) or otherPlayer:IsInGroup(group2) or otherPlayer:IsInGroup(group3)) then
-            local kickMessage = "A mod has joined: " .. otherPlayer.Name
-            player:Kick(kickMessage)
-            break
-        end
+    -- Group ID checks
+    local group1, group2, group3 = 8068202, 10604500, 10878346
+    if plr:IsInGroup(group1) or plr:IsInGroup(group2) or plr:IsInGroup(group3) then
+        plr:Kick("A mod has joined: " .. plr.Name)
     end
 end
 
--- Function to handle new players joining
-local function onPlayerAdded(newPlayer)
-    if newPlayer:IsInGroup(group1) or newPlayer:IsInGroup(group2) or newPlayer:IsInGroup(group3) then
-        local kickMessage = "A mod has joined: " .. newPlayer.Name
-        player:Kick(kickMessage)
-    end
-end
-
--- Connect the function to the PlayerAdded event
+-- Connect the function to PlayerAdded event
 game.Players.PlayerAdded:Connect(onPlayerAdded)
 
--- Check for players already in the game when the script runs
-checkAndKick()
+-- Check for existing players when the script runs
+for _, player in pairs(game.Players:GetPlayers()) do
+    onPlayerAdded(player)
+end
