@@ -14,7 +14,7 @@ CreateTeleport("basketball", -929, 27, -445)
 Create("Orbit!", function()
     local playerName = "xBlur2502"
     local player = game.Players:FindFirstChild(playerName)
-
+    
     if not player or not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
         warn(playerName .. " or their HumanoidRootPart not found")
         return
@@ -22,21 +22,38 @@ Create("Orbit!", function()
 
     local center = player.Character.HumanoidRootPart
     local radius = 10
-    local numAlts = 6  -- Number of alts you have
-    local angleIncrement = 2 * math.pi / numAlts
-    local altIndex = tonumber(script.Name:match("%d+")) or math.random(1, numAlts)  -- Unique index for each alt
+    local orbitSpeed = math.rad(1)  -- Adjust the speed of orbit here
+
+    -- List of all alt names and their unique starting positions
+    local altConfigs = {
+        ["Raphael250208"] = 1,
+        ["xblury6"] = 2,
+        ["xBlury7"] = 3,
+        ["xBlury8"] = 4,
+        ["xBlury9"] = 5,
+        ["xBlury3"] = 6
+    }
+
+    local altName = script.Parent.Name
+    local altIndex = altConfigs[altName]
+
+    if not altIndex then
+        warn(altName .. " is not configured")
+        return
+    end
+
+    local angleIncrement = 2 * math.pi / #altConfigs
     local initialAngle = angleIncrement * altIndex
-    local orbitRadius = radius
 
     while true do
-        initialAngle = initialAngle + math.rad(1)  -- Adjust orbit speed here
+        initialAngle = initialAngle + orbitSpeed
 
-        local x = orbitRadius * math.cos(initialAngle)
-        local z = orbitRadius * math.sin(initialAngle)
-        local position = center.Position + Vector3.new(x, 0, z)
+        local x = radius * math.cos(initialAngle)
+        local z = radius * math.sin(initialAngle)
+        local newPosition = center.Position + Vector3.new(x, 0, z)
         
-        -- Update the CFrame to face the player
-        script.Parent.CFrame = CFrame.lookAt(position, center.Position)
+        -- Update CFrame to orbit and face the center
+        script.Parent.CFrame = CFrame.lookAt(newPosition, center.Position)
 
         wait(0.1)  -- Adjust for smoothness
     end
