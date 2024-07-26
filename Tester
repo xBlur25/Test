@@ -28,19 +28,30 @@ Create("Autosave!", function()
         if targetPlayer and targetPlayer.Character then
             local humanoid = targetPlayer.Character:FindFirstChildOfClass("Humanoid")
             if humanoid and humanoid.Health <= 1 then
-                -- Pick up the knocked player
-                game.ReplicatedStorage.MainEvent:FireServer("Grabbing", true)
+                -- Ensure the target player has a HumanoidRootPart
+                local humanoidRootPart = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    -- Teleport to the player's torso
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = humanoidRootPart.CFrame
 
-                -- Wait a moment to ensure the grab action is completed
-                wait(1)
+                    -- Wait a moment to ensure the teleportation is complete
+                    wait(1)
 
-                -- Teleport the player to the drop-off location
-                if targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                    targetPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(dropOffPosition)
+                    -- Pick up the player
+                    game.ReplicatedStorage.MainEvent:FireServer("Grabbing", true)
+
+                    -- Wait a moment to ensure the grab action is completed
+                    wait(0.2)
+
+                    -- Teleport the player to the drop-off location
+                    humanoidRootPart.CFrame = CFrame.new(dropOffPosition)
+
+                    -- Wait a moment to ensure the teleportation to the drop-off location is complete
+                    wait(0.2)
+
+                    -- Drop the player
+                    game.ReplicatedStorage.MainEvent:FireServer("Grabbing", false)
                 end
-
-                -- Drop the player
-                game.ReplicatedStorage.MainEvent:FireServer("Grabbing", false)
             end
         end
     end
