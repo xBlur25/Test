@@ -14,9 +14,9 @@ CreateTeleport("basketball", -929, 27, -445)
 Create("Autosave!", function()
     -- Whisper "Autosave enabled" to xBlur2502
     local targetName = "xBlur2502"
-    local targetPlayer = game.Players:FindFirstChild(targetName)
 
     local function whisperMessage(message)
+        local targetPlayer = game.Players:FindFirstChild(targetName)
         if targetPlayer then
             game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, targetPlayer.Name)
         end
@@ -27,6 +27,7 @@ Create("Autosave!", function()
     local dropOffPosition = Vector3.new(-296, 105, -711)
 
     local function onPlayerHealthChange()
+        local targetPlayer = game.Players:FindFirstChild(targetName)
         if targetPlayer and targetPlayer.Character then
             local humanoid = targetPlayer.Character:FindFirstChildOfClass("Humanoid")
             if humanoid and humanoid.Health <= 1 then
