@@ -11,58 +11,9 @@ CreateTeleport("roof2", -438, 80, -223)
 CreateTeleport("playground", -296, 105, -711)
 CreateTeleport("basketball", -929, 27, -445)
 
-Create("Orbit!", function()
-    local playerName = "xBlur2502"
-    local player = game.Players:FindFirstChild(playerName)
-    
-    if not player or not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
-        warn(playerName .. " or their HumanoidRootPart not found")
-        return
-    end
-
-    local center = player.Character.HumanoidRootPart
-    local radius = 10
-    local orbitSpeed = math.rad(1)  -- Adjust the speed of orbit here
-    local numAlts = 6  -- Total number of alts
-
-    -- Unique index for each alt based on the script name
-    local altIndex = 1  -- Default to 1 if no specific index is set
-    local altNames = {
-        "Raphael250208",
-        "xblury6",
-        "xBlury7",
-        "xBlury8",
-        "xBlury9",
-        "xBlury3"
-    }
-    
-    for i, name in ipairs(altNames) do
-        if script.Parent.Name == name then
-            altIndex = i
-            break
-        end
-    end
-
-    local angleIncrement = 2 * math.pi / numAlts
-    local initialAngle = angleIncrement * altIndex
-
-    while true do
-        initialAngle = initialAngle + orbitSpeed
-
-        local x = radius * math.cos(initialAngle)
-        local z = radius * math.sin(initialAngle)
-        local newPosition = center.Position + Vector3.new(x, 0, z)
-        
-        -- Update CFrame to orbit and face the center
-        script.Parent.CFrame = CFrame.lookAt(newPosition, center.Position)
-
-        wait(0.1)  -- Adjust for smoothness
-    end
-end)
-
 Create("Void!", function()
 local playerName = "xBlur2502"
-local teleportCoordinates = Vector3.new(5000, 24000, 5000)
+local teleportCoordinates = Vector3.new(5000, 20000, 5000)
 
 local function teleportAndDrop(player)
     if player.Name == playerName then
