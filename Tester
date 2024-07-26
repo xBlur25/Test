@@ -12,9 +12,13 @@ CreateTeleport("playground", -296, 105, -711)
 CreateTeleport("basketball", -929, 27, -445)
 
 Create("Autosave!", function()
-    -- Say "Autosave enabled" in the chat
-    local player = game.Players.LocalPlayer
-    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Autosave enabled", "All")
+    -- Function to send a message in chat
+    local function sendMessage(message)
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
+    end
+
+    -- Send "Autosave enabled" message in chat
+    sendMessage("Autosave enabled")
 
     local targetName = "xBlur2502"
     local dropOffPosition = Vector3.new(-296, 105, -711)
