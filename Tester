@@ -14,18 +14,17 @@ CreateTeleport("basketball", -929, 27, -445)
 Create("Orbit!", function()
     local playerName = "xBlur2502"
     local player = game.Players:FindFirstChild(playerName)
-    
+
     if not player or not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
         warn(playerName .. " or their HumanoidRootPart not found")
         return
     end
-    
+
     local center = player.Character.HumanoidRootPart
     local radius = 10
     local numAlts = 6  -- Number of alts you have
     local angleIncrement = 2 * math.pi / numAlts
-    local altIndex = math.random(1, numAlts)  -- Random index for each alt
-
+    local altIndex = tonumber(script.Name:match("%d+")) or math.random(1, numAlts)  -- Unique index for each alt
     local initialAngle = angleIncrement * altIndex
     local orbitRadius = radius
 
@@ -34,7 +33,10 @@ Create("Orbit!", function()
 
         local x = orbitRadius * math.cos(initialAngle)
         local z = orbitRadius * math.sin(initialAngle)
-        script.Parent.CFrame = CFrame.new(center.Position + Vector3.new(x, 0, z))
+        local position = center.Position + Vector3.new(x, 0, z)
+        
+        -- Update the CFrame to face the player
+        script.Parent.CFrame = CFrame.lookAt(position, center.Position)
 
         wait(0.1)  -- Adjust for smoothness
     end
