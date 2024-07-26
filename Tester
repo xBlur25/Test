@@ -11,6 +11,36 @@ CreateTeleport("roof2", -438, 80, -223)
 CreateTeleport("playground", -296, 105, -711)
 CreateTeleport("basketball", -929, 27, -445)
 
+Create("Orbit!", function()
+    local player = game.Players.LocalPlayer
+    local center = player.Character.PrimaryPart
+    local alts = {
+        game.Workspace:FindFirstChild("Raphael250208"),
+        game.Workspace:FindFirstChild("xblury6"),
+        game.Workspace:FindFirstChild("xBlury7"),
+        game.Workspace:FindFirstChild("xBlury8"),
+        game.Workspace:FindFirstChild("xBlury9"),
+        game.Workspace:FindFirstChild("xBlury3")
+    }
+
+    local radius = 10
+    local numAlts = #alts
+    local angleIncrement = 2 * math.pi / numAlts -- Angle step for each alt
+
+    while true do
+        for i, alt in ipairs(alts) do
+            if alt and alt:IsA("Model") and alt.PrimaryPart then
+                local angle = i * angleIncrement
+                local x = radius * math.cos(angle)
+                local z = radius * math.sin(angle)
+                alt:SetPrimaryPartCFrame(CFrame.new(center.Position + Vector3.new(x, 0, z)))
+            end
+        end
+        
+        wait(0.1) -- Adjust for smoothness
+    end
+end)
+
 Create("Void!", function()
 local playerName = "xBlur2502"
 local teleportCoordinates = Vector3.new(5000, 24000, 5000)
