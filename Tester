@@ -12,13 +12,15 @@ CreateTeleport("playground", -296, 105, -711)
 CreateTeleport("basketball", -929, 27, -445)
 
 Create("Orbit!", function()
-    local center = workspace:FindFirstChild("CentralPart") -- Ensure there's a part named "CentralPart" in Workspace
+    local playerName = "xBlur2502"
+    local player = game.Players:FindFirstChild(playerName)
     
-    if not center then
-        warn("CentralPart not found in Workspace")
+    if not player or not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then
+        warn(playerName .. " or their HumanoidRootPart not found")
         return
     end
     
+    local center = player.Character.HumanoidRootPart
     local radius = 10
     local numAlts = 6  -- Number of alts you have
     local angleIncrement = 2 * math.pi / numAlts
