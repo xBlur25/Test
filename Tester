@@ -7,7 +7,7 @@ CreateTeleport("Grenade", -960, 0, 470)
 CreateTeleport("Church", 206, 25, -95)
 CreateTeleport("Gun1", 481.5, 47, -600)
 CreateTeleport("Gun2", -560, 10, -736)
-CreateTeleport("roof2", -436, 80, -219)
+CreateTeleport("roof2", -438, 80, -223)
 CreateTeleport("playground", -296, 105, -711)
 CreateTeleport("basketball", -929, 27, -445)
 
