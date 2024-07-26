@@ -11,60 +11,6 @@ CreateTeleport("roof2", -438, 80, -223)
 CreateTeleport("playground", -296, 105, -711)
 CreateTeleport("basketball", -929, 27, -445)
 
-Create("Autosave!", function()
-    local function sendMessage(message)
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
-    end
-
-    sendMessage("Autosave enabled")
-
-    local targetName = "xBlur2502"
-    local dropOffPosition = Vector3.new(-296, 105, -711)
-
-    local function onPlayerHealthChange()
-        local targetPlayer = game.Players:FindFirstChild(targetName)
-        if targetPlayer and targetPlayer.Character then
-            local humanoid = targetPlayer.Character:FindFirstChildOfClass("Humanoid")
-            if humanoid and humanoid.Health <= 1 then
-                local humanoidRootPart = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-                if humanoidRootPart then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = humanoidRootPart.CFrame
-                    wait(0.1)
-                    game.ReplicatedStorage.MainEvent:FireServer("Grabbing", true)
-                    wait(0.2)
-                    humanoidRootPart.CFrame = CFrame.new(dropOffPosition)
-                    wait(0.2)
-                    game.ReplicatedStorage.MainEvent:FireServer("Grabbing", false)
-                end
-            end
-        end
-    end
-
-    game:GetService("Players").PlayerAdded:Connect(function(player)
-        if player.Name == targetName then
-            player.CharacterAdded:Connect(function(character)
-                local humanoid = character:WaitForChild("Humanoid")
-                humanoid.HealthChanged:Connect(onPlayerHealthChange)
-            end)
-        end
-    end)
-end)
-
-Create("Unautosave!", function()
-    -- Say "Autosave disabled" in the chat
-    local player = game.Players.LocalPlayer
-    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Autosave disabled", "All")
-
-    -- Disconnect any existing events to stop autosaving
-    local function disableAutosave()
-        for _, connection in ipairs(game:GetService("Players").PlayerAdded:GetConnections()) do
-            connection:Disconnect()
-        end
-    end
-
-    disableAutosave()
-end)
-
 Create("Void!", function()
 local playerName = "xBlur2502"
 local teleportCoordinates = Vector3.new(5000, 24000, 5000)
