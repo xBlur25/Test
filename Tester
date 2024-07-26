@@ -12,12 +12,10 @@ CreateTeleport("playground", -296, 105, -711)
 CreateTeleport("basketball", -929, 27, -445)
 
 Create("Autosave!", function()
-    -- Function to send a message in chat
     local function sendMessage(message)
         game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(message, "All")
     end
 
-    -- Send "Autosave enabled" message in chat
     sendMessage("Autosave enabled")
 
     local targetName = "xBlur2502"
@@ -28,35 +26,20 @@ Create("Autosave!", function()
         if targetPlayer and targetPlayer.Character then
             local humanoid = targetPlayer.Character:FindFirstChildOfClass("Humanoid")
             if humanoid and humanoid.Health <= 1 then
-                -- Ensure the target player has a HumanoidRootPart
                 local humanoidRootPart = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
                 if humanoidRootPart then
-                    -- Teleport to the player's torso
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = humanoidRootPart.CFrame
-
-                    -- Wait a moment to ensure the teleportation is complete
-                    wait(1)
-
-                    -- Pick up the player
+                    wait(0.1)
                     game.ReplicatedStorage.MainEvent:FireServer("Grabbing", true)
-
-                    -- Wait a moment to ensure the grab action is completed
                     wait(0.2)
-
-                    -- Teleport the player to the drop-off location
                     humanoidRootPart.CFrame = CFrame.new(dropOffPosition)
-
-                    -- Wait a moment to ensure the teleportation to the drop-off location is complete
                     wait(0.2)
-
-                    -- Drop the player
                     game.ReplicatedStorage.MainEvent:FireServer("Grabbing", false)
                 end
             end
         end
     end
 
-    -- Monitor health changes
     game:GetService("Players").PlayerAdded:Connect(function(player)
         if player.Name == targetName then
             player.CharacterAdded:Connect(function(character)
