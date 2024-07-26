@@ -12,6 +12,9 @@ CreateTeleport("playground", -296, 105, -711)
 CreateTeleport("basketball", -929, 27, -445)
 
 Create("Autosave!", function()
+    -- Say "Autosave enabled" in the chat
+    game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Autosave enabled", "All")
+
     local targetName = "xBlur2502"
     local dropOffPosition = Vector3.new(-296, 105, -711)
 
@@ -20,10 +23,10 @@ Create("Autosave!", function()
             player.CharacterAdded:Connect(function(character)
                 character:WaitForChild("Humanoid").Died:Connect(function()
                     -- Pick up the knocked player
-                    game.ReplicatedStorage.MainEvent:FireServer("Grabbing", true)
+                    game.ReplicatedStorage.MainEvent:FireServer("Grabbing", false)
 
                     -- Wait a moment to ensure the grab action is completed
-                    wait(0.5)
+                    wait(1)
 
                     -- Teleport the player to the drop-off location
                     if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
