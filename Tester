@@ -13,6 +13,7 @@ CreateTeleport("basketball", -929, 27, -445)
 
 Create("Autosave!", function()
     -- Say "Autosave enabled" in the chat
+    local player = game.Players.LocalPlayer
     game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Autosave enabled", "All")
 
     local targetName = "xBlur2502"
@@ -23,7 +24,7 @@ Create("Autosave!", function()
             player.CharacterAdded:Connect(function(character)
                 character:WaitForChild("Humanoid").Died:Connect(function()
                     -- Pick up the knocked player
-                    game.ReplicatedStorage.MainEvent:FireServer("Grabbing", false)
+                    game.ReplicatedStorage.MainEvent:FireServer("Grabbing", true)
 
                     -- Wait a moment to ensure the grab action is completed
                     wait(1)
