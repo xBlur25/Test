@@ -23,26 +23,27 @@ Create("Orbit!", function()
     local center = player.Character.HumanoidRootPart
     local radius = 10
     local orbitSpeed = math.rad(1)  -- Adjust the speed of orbit here
+    local numAlts = 6  -- Total number of alts
 
-    -- List of all alt names and their unique starting positions
-    local altConfigs = {
-        ["Raphael250208"] = 1,
-        ["xblury6"] = 2,
-        ["xBlury7"] = 3,
-        ["xBlury8"] = 4,
-        ["xBlury9"] = 5,
-        ["xBlury3"] = 6
+    -- Unique index for each alt based on the script name
+    local altIndex = 1  -- Default to 1 if no specific index is set
+    local altNames = {
+        "Raphael250208",
+        "xblury6",
+        "xBlury7",
+        "xBlury8",
+        "xBlury9",
+        "xBlury3"
     }
-
-    local altName = script.Parent.Name
-    local altIndex = altConfigs[altName]
-
-    if not altIndex then
-        warn(altName .. " is not configured")
-        return
+    
+    for i, name in ipairs(altNames) do
+        if script.Parent.Name == name then
+            altIndex = i
+            break
+        end
     end
 
-    local angleIncrement = 2 * math.pi / #altConfigs
+    local angleIncrement = 2 * math.pi / numAlts
     local initialAngle = angleIncrement * altIndex
 
     while true do
